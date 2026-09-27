@@ -141,7 +141,7 @@ function render(){
     (g.languages || []).forEach(l => tags.push(esc(String(l).toUpperCase())));
     if (g.daily) tags.push(T[lang].daily);
     (g.tags || []).forEach(t => tags.push(esc(txt(t))));
-    return `<a class="card" href="${esc(path)}" style="--accent:${accent};--accent-fg:${fgFor(accent)}">
+    return `<a class="card" href="${esc(path)}" target="_blank" rel="noopener" style="--accent:${accent};--accent-fg:${fgFor(accent)}">
       <div class="art">${art}</div>
       <div class="body">
         <h2><i></i>${esc(txt(g.name))}</h2>
