@@ -32,5 +32,22 @@
     "order": 2,
     "id": "quadra",
     "path": "quadra/"
+  },
+  {
+    "name": "VERBA",
+    "description": {
+      "it": "Il classico: indovina la parola di 5 lettere in 6 tentativi, con le lettere che si colorano a ogni tentativo. Una parola al giorno, uguale per tutti, in italiano o in inglese, più l'allenamento senza limiti.",
+      "en": "The classic: guess the 5-letter word in 6 tries, with letters that light up after every try. One word a day, the same for everyone, in Italian or English, plus unlimited practice."
+    },
+    "accent": "#d9a441",
+    "languages": [
+      "it",
+      "en"
+    ],
+    "daily": true,
+    "preview": "preview.svg",
+    "order": 3,
+    "id": "verba",
+    "path": "verba/"
   }
 ]
