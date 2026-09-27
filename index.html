@@ -3,85 +3,90 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Daily Games Hub</title>
-<meta name="description" content="Piccoli giochi gratuiti da browser, uno nuovo ogni giorno. Senza account, senza installare nulla.">
-<meta name="theme-color" content="#24272c">
-<meta property="og:title" content="Daily Games Hub">
-<meta property="og:description" content="Piccoli giochi gratuiti da browser, uno nuovo ogni giorno.">
+<title>Daily Games</title>
+<meta name="description" content="Piccoli giochi gratuiti da browser con una sfida nuova ogni giorno. Senza account, senza installare nulla.">
+<meta name="theme-color" content="#1b1c1f">
+<meta property="og:title" content="Daily Games">
+<meta property="og:description" content="Piccoli giochi gratuiti da browser con una sfida nuova ogni giorno.">
 <meta property="og:type" content="website">
 <link rel="icon" href="favicon.svg">
 <!-- AdSense: quando il sito sarà approvato, lo script di verifica va qui, prima di </head> -->
 <style>
-@font-face{ font-family:"Big Shoulders"; src:url("fonts/BigShouldersText.woff2") format("woff2"); font-weight:100 900; font-style:normal; font-display:swap; }
+@font-face{ font-family:"Bricolage"; src:url("fonts/Bricolage.woff2") format("woff2"); font-weight:200 800; font-style:normal; font-display:swap; }
 :root{
-  --bg:#24272c; --panel:#090b0e; --off:#161a1e; --led:#f7f2e6; --amber:#ffb324;
-  --blue:#4c8dff; --green:#3bd36b; --red:#ff4c3f; --dim:#8a9099;
-  --fg:#edece7; --muted:#9aa0a8; --key:#363a41; --surface:#2c3036; --line:#3d424a;
-  --font:"Big Shoulders","Arial Narrow","Helvetica Neue",Arial,sans-serif;
+  --bg:#1b1c1f; --surface:#242629; --surface-2:#2c2e33; --line:#35383e;
+  --fg:#f2f1ed; --muted:#9d9fa5; --faint:#5e6167;
+  --font:"Bricolage","Helvetica Neue",Arial,sans-serif;
   box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
 *,*::before,*::after{box-sizing:inherit}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0; background:var(--bg); color:var(--fg); font-family:var(--font); font-weight:500; font-size:18px; line-height:1.45}
-a{color:var(--amber)}
-a:focus-visible,button:focus-visible{outline:3px solid var(--amber); outline-offset:3px}
-.wrap{max-width:720px; margin:0 auto; padding:0 20px 40px}
+body{margin:0; background:var(--bg); color:var(--fg); font-family:var(--font); font-weight:400; font-size:17px; line-height:1.5}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--fg); outline-offset:3px}
+.wrap{max-width:760px; margin:0 auto; padding:0 20px 48px}
 
 /* header */
-.top{display:flex; justify-content:flex-end; align-items:center; padding:14px 0 0; gap:8px}
-.lang{display:flex; border:1.5px solid var(--line); border-radius:8px; overflow:hidden; background:var(--panel)}
-.lang button{border:0; background:transparent; color:var(--muted); font-family:inherit; font-weight:700; font-size:14px; letter-spacing:.06em; padding:6px 12px; cursor:pointer}
-.lang button + button{border-left:1.5px solid var(--line)}
-.lang button.on{background:var(--led); color:#111}
+.top{display:flex; justify-content:space-between; align-items:center; padding:18px 0 0; gap:12px}
+.brand{font-weight:800; font-size:20px; letter-spacing:-.01em; text-decoration:none; display:flex; align-items:center; gap:10px}
+.brand i{width:26px; height:26px; border-radius:7px; background:var(--fg); display:inline-grid; grid-template-columns:repeat(3,1fr); gap:3px; padding:5px}
+.brand i b{background:var(--bg); border-radius:50%}
+.lang{display:flex; border:1px solid var(--line); border-radius:8px; overflow:hidden}
+.lang button{border:0; background:transparent; color:var(--muted); font-family:inherit; font-weight:600; font-size:13px; letter-spacing:.06em; padding:6px 11px; cursor:pointer}
+.lang button + button{border-left:1px solid var(--line)}
+.lang button.on{background:var(--fg); color:var(--bg)}
 
-/* hero: the LED sign */
-.sign{margin:26px 0 10px; background:var(--panel); border-radius:16px; padding:22px 18px 18px; border:1px solid #15181c;
-  box-shadow:inset 0 0 0 3px #000, inset 0 12px 30px rgba(0,0,0,.6), 0 10px 30px rgba(0,0,0,.35)}
-.sign svg{width:100%; height:auto; display:block}
-.tagline{font-size:22px; font-weight:600; color:var(--fg); margin:18px 0 6px; letter-spacing:.01em}
-.sub{color:var(--muted); margin:0 0 30px; font-size:17px}
+/* hero */
+.hero{padding:54px 0 34px}
+.hero h1{margin:0 0 12px; font-size:clamp(40px,9vw,64px); font-weight:800; line-height:.98; letter-spacing:-.025em}
+.hero p{margin:0; font-size:19px; color:var(--muted); max-width:34em}
+.today{margin-top:22px; display:inline-flex; align-items:center; gap:10px; font-weight:600; font-size:14px; color:var(--fg); background:var(--surface); border:1px solid var(--line); border-radius:999px; padding:7px 14px 7px 10px}
+.today i{width:8px; height:8px; border-radius:50%; background:var(--fg); opacity:.9}
 
 /* games */
-h2{font-size:14px; font-weight:700; color:var(--muted); letter-spacing:.1em; margin:34px 0 12px}
-.game{display:grid; grid-template-columns:1fr; gap:14px; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:16px; text-decoration:none; color:inherit}
-.game .preview{background:var(--panel); border-radius:10px; padding:12px 12px 10px; border:1px solid #15181c}
-.game .preview svg{width:100%; max-width:300px; height:auto; display:block; margin:0 auto}
-.game h3{margin:0 0 4px; font-size:26px; font-weight:800; letter-spacing:.02em}
-.game p{margin:0 0 10px; color:var(--muted); font-size:16px}
-.tags{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px}
-.tags span{font-size:13px; font-weight:700; letter-spacing:.06em; color:var(--fg); background:var(--key); padding:4px 9px; border-radius:6px}
-.play{display:inline-block; background:var(--amber); color:#1a1200; font-weight:800; font-size:17px; letter-spacing:.04em; padding:12px 22px; border-radius:10px; text-decoration:none}
-.play:active{filter:brightness(.92)}
-@media (min-width:560px){ .game{grid-template-columns:260px 1fr; align-items:center} }
-.soon{color:var(--muted); font-size:16px; margin:14px 0 0}
+.games{display:flex; flex-direction:column; gap:14px; margin-top:8px}
+.card{--accent:#f2f1ed; display:grid; grid-template-columns:1fr; background:var(--surface); border:1px solid var(--line); border-radius:16px; overflow:hidden; text-decoration:none; color:inherit; transition:border-color .12s}
+.card:hover{border-color:var(--faint)}
+.card .art{background:var(--surface-2); min-height:150px; display:flex; align-items:center; justify-content:center; position:relative}
+.card .art img{width:100%; height:100%; max-height:190px; object-fit:cover; display:block}
+.card .art .mono{width:88px; height:88px; border-radius:20px; background:var(--accent); color:var(--accent-fg,#111); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:34px; letter-spacing:-.03em}
+.card .body{padding:18px 20px 20px}
+.card h2{margin:0 0 6px; font-size:26px; font-weight:800; letter-spacing:-.02em; line-height:1.1; display:flex; align-items:center; gap:10px}
+.card h2 i{width:10px; height:10px; border-radius:50%; background:var(--accent); flex:0 0 auto}
+.card p{margin:0 0 12px; color:var(--muted); font-size:16px}
+.meta{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px}
+.meta span{font-size:12px; font-weight:600; letter-spacing:.06em; color:var(--muted); border:1px solid var(--line); padding:3px 8px; border-radius:6px}
+.play{display:inline-block; background:var(--accent); color:var(--accent-fg,#111); font-weight:700; font-size:16px; padding:11px 20px; border-radius:10px}
+@media (min-width:600px){ .card{grid-template-columns:240px 1fr} .card .art{min-height:100%} .card .art img{max-height:none; height:100%} }
+
+/* states */
+.skeleton{height:170px; border-radius:16px; background:linear-gradient(90deg,var(--surface),var(--surface-2),var(--surface)); background-size:200% 100%; animation:sh 1.2s infinite}
+@keyframes sh{to{background-position:-200% 0}}
+@media (prefers-reduced-motion: reduce){.skeleton{animation:none}}
+.note{color:var(--muted); font-size:15px; margin:10px 0 0}
+.soon{margin:18px 0 0; color:var(--faint); font-size:15px}
 
 /* footer */
-footer{margin-top:44px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:15px; display:flex; flex-wrap:wrap; gap:8px 22px}
+footer{margin-top:52px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:14px; display:flex; flex-wrap:wrap; gap:8px 22px}
 footer a{color:var(--muted)}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="top">
-    <div class="lang" role="group" aria-label="Lingua">
+    <a class="brand" href="./"><i><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></i>Daily Games</a>
+    <div class="lang" role="group" aria-label="Lingua / Language">
       <button data-lang="it" class="on">IT</button><button data-lang="en">EN</button>
     </div>
   </div>
 
-  <div class="sign" id="sign" aria-label="Daily Games Hub"></div>
-  <p class="tagline" data-t="tagline"></p>
-  <p class="sub" data-t="sub"></p>
+  <section class="hero">
+    <h1 data-t="title"></h1>
+    <p data-t="sub"></p>
+    <div class="today"><i></i><span id="today"></span></div>
+  </section>
 
-  <h2 data-t="games"></h2>
-  <a class="game" href="dotto/">
-    <div class="preview" id="dottoPreview"></div>
-    <div>
-      <h3>DOTTO</h3>
-      <p data-t="dottoDesc"></p>
-      <div class="tags"><span>IT</span><span>EN</span><span data-t="tagDaily"></span><span data-t="tagFree"></span></div>
-      <span class="play" data-t="play"></span>
-    </div>
-  </a>
+  <div class="games" id="games"><div class="skeleton"></div></div>
   <p class="soon" data-t="soon"></p>
 
   <footer>
@@ -92,74 +97,71 @@ footer a{color:var(--muted)}
 </div>
 
 <script>
-const FONT_SRC = {
-A:".###.|#...#|#...#|#####|#...#|#...#|#...#", B:"####.|#...#|#...#|####.|#...#|#...#|####.",
-C:".###.|#...#|#....|#....|#....|#...#|.###.", D:"###..|#..#.|#...#|#...#|#...#|#..#.|###..",
-E:"#####|#....|#....|####.|#....|#....|#####", F:"#####|#....|#....|####.|#....|#....|#....",
-G:".###.|#...#|#....|#.###|#...#|#...#|.####", H:"#...#|#...#|#...#|#####|#...#|#...#|#...#",
-I:".###.|..#..|..#..|..#..|..#..|..#..|.###.", J:"..###|...#.|...#.|...#.|...#.|#..#.|.##..",
-K:"#...#|#..#.|#.#..|##...|#.#..|#..#.|#...#", L:"#....|#....|#....|#....|#....|#....|#####",
-M:"#...#|##.##|#.#.#|#.#.#|#...#|#...#|#...#", N:"#...#|#...#|##..#|#.#.#|#..##|#...#|#...#",
-O:".###.|#...#|#...#|#...#|#...#|#...#|.###.", P:"####.|#...#|#...#|####.|#....|#....|#....",
-Q:".###.|#...#|#...#|#...#|#.#.#|#..#.|.##.#", R:"####.|#...#|#...#|####.|#.#..|#..#.|#...#",
-S:".####|#....|#....|.###.|....#|....#|####.", T:"#####|..#..|..#..|..#..|..#..|..#..|..#..",
-U:"#...#|#...#|#...#|#...#|#...#|#...#|.###.", V:"#...#|#...#|#...#|#...#|#...#|.#.#.|..#..",
-W:"#...#|#...#|#...#|#.#.#|#.#.#|#.#.#|.#.#.", X:"#...#|#...#|.#.#.|..#..|.#.#.|#...#|#...#",
-Y:"#...#|#...#|#...#|.#.#.|..#..|..#..|..#..", Z:"#####|....#|...#.|..#..|.#...|#....|#####"
-};
-const FONT = {}; for (const k in FONT_SRC) FONT[k] = FONT_SRC[k].split("|");
-
-const ROWS = 7, COLS = 5, P = 8;
-
-/* text on an LED matrix: words separated by one empty cell */
-function ledText(text, opts){
-  const o = opts || {}; const chars = [...text.toUpperCase()];
-  const w = chars.length * 48 - 8;
-  let s = `<svg viewBox="0 0 ${w} 56" aria-hidden="true">`;
-  chars.forEach((ch, i) => {
-    const g = FONT[ch];
-    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++){
-      const x = 4 + i * 48 + c * P, y = 4 + r * P;
-      const lit = g && g[r][c] === "#";
-      if (!lit){ s += `<circle cx="${x}" cy="${y}" r="1.7" fill="var(--off)"/>`; continue; }
-      const col = (o.colors && o.colors[i] && o.colors[i][r] && o.colors[i][r][c]) || o.fill || "var(--amber)";
-      s += `<circle cx="${x}" cy="${y}" r="5.4" fill="${col}" opacity=".16"/><circle cx="${x}" cy="${y}" r="3.2" fill="${col}"/>`;
-    }
-  });
-  return s + "</svg>";
-}
-document.getElementById("sign").innerHTML = ledText("DAILY GAMES");
-
-/* DOTTO preview: the word with a few clue colours, as it looks mid-game */
-const B = "var(--blue)", G = "var(--green)", R = "var(--red)", U = "var(--dim)";
-function paint(ch, rule){ const g = FONT[ch]; const out = []; for (let r=0;r<ROWS;r++){ out[r]=[]; for (let c=0;c<COLS;c++) out[r][c] = g[r][c]==="#" ? rule(r,c) : null; } return out; }
-const colors = [
-  paint("D", () => B),
-  paint("O", (r,c) => r < 2 ? G : U),
-  paint("T", (r,c) => r === 0 ? (c === 0 || c === 4 ? R : G) : r === 1 ? G : U),
-  paint("T", () => B),
-  paint("O", (r,c) => r < 2 ? (r === 0 && c === 1 ? R : G) : U)
-];
-document.getElementById("dottoPreview").innerHTML = ledText("DOTTO", { colors });
-
-/* strings */
 const T = {
-  it: { tagline:"Piccoli giochi da browser, uno nuovo ogni giorno.", sub:"Gratis, senza account e senza installare nulla. Si gioca da telefono o da computer.",
-        games:"I GIOCHI", dottoDesc:"Indovina la parola di 5 lettere con gli indizi a puntini: ogni tentativo accende i pixel giusti e spegne quelli sbagliati. Una parola al giorno, uguale per tutti, più l'allenamento con parole casuali.",
-        tagDaily:"PAROLA DEL GIORNO", tagFree:"GRATIS", play:"Gioca a DOTTO", soon:"Altri giochi in arrivo.", privacy:"Privacy", source:"Codice su GitHub", by:"Un progetto di Luca Zanotto" },
-  en: { tagline:"Small browser games, a new one every day.", sub:"Free, no account, nothing to install. Play on your phone or computer.",
-        games:"THE GAMES", dottoDesc:"Guess the 5-letter word from pixel clues: every try lights up the right pixels and marks the wrong ones. One word a day, the same for everyone, plus practice mode with random words.",
-        tagDaily:"WORD OF THE DAY", tagFree:"FREE", play:"Play DOTTO", soon:"More games coming.", privacy:"Privacy", source:"Source on GitHub", by:"A project by Luca Zanotto" }
+  it: { title:"Un gioco nuovo ogni giorno.", sub:"Piccoli giochi da browser, gratuiti, senza account e senza installare nulla. La sfida del giorno è la stessa per tutti.",
+        todayPrefix:"Sfide di oggi, ", play:"Gioca", daily:"OGNI GIORNO", soon:"Altri giochi in arrivo.",
+        loadFail:"L'elenco dei giochi non è disponibile in questo momento.", empty:"Nessun gioco pubblicato ancora.",
+        privacy:"Privacy", source:"Codice su GitHub", by:"Un progetto di Luca Zanotto", locale:"it-IT" },
+  en: { title:"A new game every day.", sub:"Small browser games, free, no account and nothing to install. Today's challenge is the same for everyone.",
+        todayPrefix:"Today's challenges, ", play:"Play", daily:"DAILY", soon:"More games coming.",
+        loadFail:"The game list is not available right now.", empty:"No games published yet.",
+        privacy:"Privacy", source:"Source on GitHub", by:"A project by Luca Zanotto", locale:"en-GB" }
 };
-function setLang(l){
-  document.documentElement.lang = l;
-  document.querySelectorAll("[data-t]").forEach(el => el.textContent = T[l][el.dataset.t]);
-  document.querySelectorAll(".lang button").forEach(b => b.classList.toggle("on", b.dataset.lang === l));
-  try { localStorage.setItem("hub:lang", l); } catch(e){}
-}
-document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
 let lang = "it"; try { lang = localStorage.getItem("hub:lang") || lang; } catch(e){}
-setLang(T[lang] ? lang : "it");
+if (!T[lang]) lang = "it";
+let games = null;
+
+function txt(v){ if (v == null) return ""; if (typeof v === "string") return v; return v[lang] || v.it || v.en || Object.values(v)[0] || ""; }
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function safeUrl(u){ return /^(https:\/\/[\w.\-\/%?=&]+|data:image\/(svg\+xml|png|jpeg|webp)[;,][^"'<>]*|[\w.\-\/]+)$/.test(u) ? u : ""; }
+function fgFor(hex){
+  const m = /^#?([0-9a-f]{6})$/i.exec(hex || ""); if (!m) return "#111";
+  const n = parseInt(m[1], 16), r = n >> 16 & 255, g = n >> 8 & 255, b = n & 255;
+  return (0.2126*r + 0.7152*g + 0.0722*b) > 150 ? "#111" : "#fff";
+}
+function render(){
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-t]").forEach(el => el.textContent = T[lang][el.dataset.t]);
+  document.querySelectorAll(".lang button").forEach(b => b.classList.toggle("on", b.dataset.lang === lang));
+  const ds = new Date().toLocaleDateString(T[lang].locale, { weekday:"long", day:"numeric", month:"long" });
+  document.getElementById("today").textContent = T[lang].todayPrefix + ds;
+  const box = document.getElementById("games");
+  if (games === null) return;
+  if (games === false){ box.innerHTML = `<p class="note">${T[lang].loadFail}</p>`; return; }
+  if (!games.length){ box.innerHTML = `<p class="note">${T[lang].empty}</p>`; return; }
+  box.innerHTML = games.map(g => {
+    const accent = /^#[0-9a-f]{6}$/i.test(g.accent || "") ? g.accent : "#f2f1ed";
+    const path = safeUrl(g.path || (g.id + "/")) || "#";
+    const prev = g.preview ? safeUrl(/^(https:|data:)/.test(g.preview) ? g.preview : path + g.preview) : "";
+    const initials = esc((txt(g.name) || "?").slice(0, 2).toUpperCase());
+    const art = prev
+      ? `<img src="${esc(prev)}" alt="" loading="lazy" data-initials="${initials}">`
+      : `<div class="mono">${initials}</div>`;
+    const tags = [];
+    (g.languages || []).forEach(l => tags.push(esc(String(l).toUpperCase())));
+    if (g.daily) tags.push(T[lang].daily);
+    (g.tags || []).forEach(t => tags.push(esc(txt(t))));
+    return `<a class="card" href="${esc(path)}" style="--accent:${accent};--accent-fg:${fgFor(accent)}">
+      <div class="art">${art}</div>
+      <div class="body">
+        <h2><i></i>${esc(txt(g.name))}</h2>
+        <p>${esc(txt(g.description))}</p>
+        <div class="meta">${tags.map(t => `<span>${t}</span>`).join("")}</div>
+        <span class="play">${T[lang].play}</span>
+      </div></a>`;
+  }).join("");
+  box.querySelectorAll("img[data-initials]").forEach(img => img.addEventListener("error", () => {
+    const d = document.createElement("div"); d.className = "mono"; d.textContent = img.dataset.initials; img.replaceWith(d);
+  }));
+}
+document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => {
+  lang = b.dataset.lang; try { localStorage.setItem("hub:lang", lang); } catch(e){} render();
+}));
+render();
+fetch("games.json", { cache:"no-store" })
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(list => { games = Array.isArray(list) ? list.filter(g => g && !g.hidden) : []; render(); })
+  .catch(() => { games = false; render(); });
 </script>
 </body>
 </html>
