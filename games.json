@@ -49,5 +49,22 @@
     "order": 3,
     "id": "verba",
     "path": "verba/"
+  },
+  {
+    "name": "CIFRA",
+    "description": {
+      "it": "Il calcolo nascosto: indovina un'operazione di 8 caratteri (o 6 nella versione mini) in 6 tentativi, con cifre e segni al posto delle lettere. Una sfida al giorno, uguale per tutti, più l'allenamento senza limiti.",
+      "en": "The hidden calculation: find an 8-character equation (or 6 in mini) in 6 tries, with digits and signs instead of letters. One challenge a day, the same for everyone, plus unlimited practice."
+    },
+    "accent": "#2451d8",
+    "languages": [
+      "it",
+      "en"
+    ],
+    "daily": true,
+    "preview": "preview.svg",
+    "order": 4,
+    "id": "cifra",
+    "path": "cifra/"
   }
 ]
