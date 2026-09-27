@@ -1,0 +1,62 @@
+# Rigenera games.json leggendo il file game.json di ogni repository pubblico dell'organizzazione.
+# Gira ogni 6 ore e ogni volta che lo lanci a mano da Actions > "Aggiorna elenco giochi" > Run workflow.
+name: Aggiorna elenco giochi
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Raccogli i game.json
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ORG: ${{ github.repository_owner }}
+        run: |
+          set -euo pipefail
+          repos=$(gh api "orgs/$ORG/repos?per_page=100&type=public" --paginate \
+            --jq '.[] | select(.archived | not) | select(.name | endswith(".github.io") | not) | "\(.name) \(.default_branch)"')
+          echo "[]" > /tmp/games.json
+          while read -r name branch; do
+            [ -z "$name" ] && continue
+            url="https://raw.githubusercontent.com/$ORG/$name/$branch/game.json"
+            if curl -fsSL "$url" -o /tmp/g.json && jq -e 'type == "object" and .name' /tmp/g.json > /dev/null 2>&1; then
+              jq --arg id "$name" '. + {id: (.id // $id), path: (.path // ($id + "/"))}' /tmp/g.json > /tmp/one.json
+              jq -s '.[0] + [.[1]]' /tmp/games.json /tmp/one.json > /tmp/next.json && mv /tmp/next.json /tmp/games.json
+              echo "trovato: $name"
+            else
+              echo "senza game.json: $name"
+            fi
+          done <<< "$repos"
+          n=$(jq length /tmp/games.json)
+          echo "Giochi trovati: $n"
+          if [ "$n" -eq 0 ]; then
+            echo "Nessun game.json trovato: lascio games.json com'è per sicurezza."
+            exit 0
+          fi
+          jq '[.[] | select(.hidden != true)] | sort_by(.order // 999, .name)' /tmp/games.json > games.json
+
+      - name: Commit se cambiato
+        run: |
+          if git diff --quiet -- games.json; then
+            echo "Nessuna modifica"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add games.json
+          git commit -m "Aggiorna elenco giochi"
+          git push
+          # chiede a GitHub Pages di ripubblicare il sito (se non parte da solo)
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" > /dev/null 2>&1 || true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
